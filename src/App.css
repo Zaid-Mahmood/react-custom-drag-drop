@@ -1,46 +1,41 @@
 body {
   padding: 0;
   margin: 0;
-}
-
-.bgMainColor {
   background-color: blueviolet;
-  height: 100vh;
 }
 
-.outerDivClass {
+.outerDivClasses {
   display: flex;
-  gap: 5%;
-  padding: 2% 0% 0% 3%;
+  gap: 20px;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
 }
 
-.imgDimensions {
-  width: 144px;
-  height: 144px;
+.mainloopDiv{
+  padding: 10px;
+  background-color: violet;
+  border: 2px solid black;
+  border-style: dashed;
+}
+.imgDimensions{
   cursor: grab;
   border-radius: 50%;
-}
-
-.hold {
-  border: 2px solid red;
-  width: 144px;
-  height: 144px;
-}
-.dashed{
-  border-style: dashed;
-  background-color: violet;
-  padding: 5px;
-  width: 144px;
-  height: 144px;
-}
-.hide {
-  display: none;
-}
-
-.loopOuterDiv {
-  padding: 5px;
   background-color: white;
-  height: auto;
+}
+
+.whiteBoxes {
+  background-color: white;
+}
+
+.commonValues {
   width: 144px;
   height: 144px;
+}
+
+.centerHeading{
+  text-align: center;
+  color: rgba(33, 74, 150, 0.548);
+  text-decoration: underline;
+  text-underline-offset: 10px;
 }

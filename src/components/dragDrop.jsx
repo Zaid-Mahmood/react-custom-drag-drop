@@ -1,70 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 const DragDrop = () => {
-    const profileImg = [
-        { id: 1, img: `${process.env.PUBLIC_URL}/dumImg.jpg` },
+    const imgsArray = [
+        { id: 1, img: `${process.env.PUBLIC_URL}/dumImg-2.jpg` },
         { id: 2, img: "" },
         { id: 3, img: "" },
-        { id: 4, img: "" }
-    ];
-    const [draggedId, setDraggedId] = useState(null);
-    const [imgState, setImgState] = useState(profileImg);
-
-    const outerDivClass = "outerDivClass";
+        { id: 4, img: "" },
+        { id: 5, img: "" }
+    ]
+    const [imgArray, setImgArray] = useState([...imgsArray]);
+    const [draggableId, setDraggableId] = useState(null);
     const imgDimensions = "imgDimensions";
-    const dashedClass = "dashed";
+    const commonCssValues = "commonValues";
+    const outerDivClasses = "outerDivClasses";
+    const whiteBoxes = "whiteBoxes";
+    const mainloopDiv = "mainloopDiv";
 
-    const dragStart = (id) => {
-        setDraggedId(id);
-    };
+    const dragStartFunction = (id) => {
+        setDraggableId(id)
+    }
 
-    const dragOverFunc = (e) => {
+    const dragEndFunction = () => {
+        setDraggableId(null)
+    }
+
+    const dragOverFunction = (e) => {
         e.preventDefault();
-    };
-
-    const dragEnd = () => {
-        setDraggedId(null); 
-    };
-
+    }
     const dropFunction = (id) => {
-
-        if (draggedId !== null) {
-            const updatedImages = [...imgState];
-            const draggedIndex = updatedImages.findIndex((item) => item.id === draggedId);
-            const droppedIndex = updatedImages.findIndex((item) => item.id === id);
-
-            // Swap images between the dragged and dropped elements
-            [updatedImages[draggedIndex], updatedImages[droppedIndex]] = [updatedImages[droppedIndex], updatedImages[draggedIndex]];
-
-            setImgState(updatedImages); // Update state with swapped images
-
+        if (draggableId !== null) {
+            const newImgArray = [...imgArray];
+            const draggedIndex = newImgArray.findIndex((item) => item.id === draggableId);
+            const droppedIndex = newImgArray.findIndex((item) => item.id === id);
+            [newImgArray[draggedIndex], newImgArray[droppedIndex]] = [newImgArray[droppedIndex], newImgArray[draggedIndex]]
+            setImgArray(newImgArray)
         }
-    };
-
-    console.log(imgState , "updatedimgStates")
+    }
     return (
-        <div className='bgMainColor'>
-            <div className={outerDivClass}>
-                {imgState.map((item) => (
-                    <div  key={item.id}  className=  {item.id === draggedId ? dashedClass :'loopOuterDiv'} 
-                    onDragOver={dragOverFunc} onDrop={() => dropFunction(item.id)}>
-                        {item.img ? (
-                            <img
-                                draggable
-                                className={imgDimensions}
-                                src={item.img}
-                                alt={`item-img-${item.id}`}
-                                onDragStart={() => dragStart(item.id)}
-                                onDragEnd={() => dragEnd()}
-                            />
-                        ) : (
-                            <div className='bg-white'></div>
-                        )}
+        <React.Fragment>
+            <h1 className='centerHeading'>Image Drag And Drop</h1>
+            <div className={outerDivClasses}>
+                {imgArray.map((item) => (
+                    <div className={draggableId === item.id ? mainloopDiv : null}
+
+                        key={item.id}>
+                        {item.img ?
+                            <div className={whiteBoxes}>
+                                <img draggable onDragStart={() => dragStartFunction(item.id)} onDragEnd={dragEndFunction} className={imgDimensions + " " + commonCssValues} src={item.img} alt='item-img' />
+                            </div>
+                            :
+                            <div onDragOver={dragOverFunction} onDrop={() => dropFunction(item.id)} className={commonCssValues + " " + whiteBoxes}>
+                            </div>
+                        }
                     </div>
                 ))}
             </div>
-        </div>
-    );
-};
+        </React.Fragment>
+
+    )
+}
 
 export default DragDrop;
